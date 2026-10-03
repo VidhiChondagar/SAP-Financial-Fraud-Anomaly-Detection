@@ -1,0 +1,6 @@
+@EndUserText.label: 'Financial Fraud Detection Service'
+
+define service ZUI_FINANCIAL_FRAUD {
+    expose ZVC_TRANSACTION as Transactions;
+    expose ZVC_ANOMALY     as Anomalies;
+}
