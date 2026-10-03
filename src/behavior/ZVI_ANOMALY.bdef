@@ -1,0 +1,26 @@
+define behavior for ZVI_ANOMALY
+persistent table ZVT_ANOMALY
+lock dependent by _transaction
+authorization dependent by _transaction
+{
+  update;
+  delete;
+
+  field ( readonly : update ) TransactionId;
+  field ( readonly : update ) AnomalyId;
+
+  association _transaction;
+
+  action ResolveAnomaly;
+
+  mapping for ZVT_ANOMALY
+  {
+    AnomalyId        = anomaly_id;
+    TransactionId    = transaction_id;
+    AnomalyType      = anomaly_type;
+    Description      = description;
+    RiskPoints       = risk_points;
+    DetectedAt       = detected_at;
+    ResolutionStatus = resolution_status;
+  }
+}
