@@ -49,7 +49,6 @@ The system analyzes financial transactions against predefined business rules, id
 
 The application follows a managed RAP architecture.
 
-```text
 SAP Fiori Elements
         │
         ▼
@@ -69,3 +68,159 @@ ABAP Behavior Implementation
         │
         ▼
 SAP HANA Database Tables
+
+🗄️ Data Model
+Transaction Table
+ZVT_TRANSACTION
+The transaction table stores financial transaction information such as:
+- Transaction ID
+- Vendor ID
+- Invoice ID
+- Transaction Date
+- Transaction Time
+- Amount
+- Currency
+- Payment Method
+- Transaction Status
+- Risk Score
+- Risk Level
+- Review Status
+- Created By
+- Created At
+- Last Changed At
+Anomaly Table
+ZVT_ANOMALY
+The anomaly table stores anomalies detected for transactions.
+A single transaction can have multiple detected anomalies, creating a one-to-many relationship between transactions and anomalies.
+Anomaly information includes:
+- Anomaly ID
+- Transaction ID
+- Anomaly Type
+- Description
+- Risk Points
+- Detected At
+- Resolution Status
+
+📦 SAP RAP Objects
+Interface CDS Views
+- ZVI_TRANSACTION
+- ZVI_ANOMALY
+Projection CDS Views
+- ZVC_TRANSACTION
+- ZVC_ANOMALY
+Behavior Definition
+The application uses a managed RAP business object with behavior definitions for transaction and anomaly management.
+Supported operations and actions include:
+- Create Transaction
+- Update Transaction
+- Delete Transaction
+- Analyze Transaction
+- Mark Under Review
+- Clear Transaction
+- Confirm Suspicious
+- Resolve Anomaly
+Service Definition
+ZUI_FINANCIAL_FRAUD
+The service exposes the transaction and anomaly projection views to the Fiori Elements application.
+
+⚙️ Business Logic
+When a transaction is analyzed, the ABAP behavior implementation evaluates the transaction against the defined anomaly rules.
+For each detected anomaly:
+1. The corresponding anomaly is created in ZVT_ANOMALY.
+2. Risk points are assigned.
+3. The total risk score is calculated.
+4. The corresponding risk level is determined.
+5. The transaction is updated with the calculated risk information.
+The system also prevents duplicate creation of the same anomaly by checking whether the anomaly already exists before inserting it.
+
+🔄 Transaction Review Workflow
+Transactions can be reviewed using the available RAP actions.
+
+              ┌────────────────┐
+              │      NEW       │
+              └───────┬────────┘
+                      │
+                      ▼
+            ┌────────────────────┐
+            │   UNDER_REVIEW     │
+            └─────────┬──────────┘
+                      │
+             ┌────────┴─────────┐
+             ▼                  ▼
+       ┌───────────┐    ┌─────────────────────┐
+       │  CLEARED  │    │ CONFIRMED_SUSPICIOUS│
+       └───────────┘    └─────────────────────┘
+
+Available Actions
+Mark Under Review
+Changes the transaction review status to:
+UNDER_REVIEW
+Clear Transaction
+Changes the review status to:
+CLEARED
+Confirm Suspicious
+Changes the review status to:
+CONFIRMED_SUSPICIOUS
+
+🔎 Anomaly Resolution
+Detected anomalies initially have the resolution status:
+OPEN
+Users can open an anomaly from the Detected Anomalies section and use the Resolve Anomaly action.
+OPEN
+  │
+  ▼
+RESOLVED
+
+🖥️ SAP Fiori Elements UI
+The application provides a Fiori Elements interface containing:
+Transaction List Report
+Displays financial transactions and their calculated risk information.
+Transaction Object Page
+Displays transaction details and provides actions such as:
+- Analyze Transaction
+- Mark Under Review
+- Clear Transaction
+- Confirm Suspicious
+Detected Anomalies
+The Transaction Object Page contains a Detected Anomalies section showing anomalies associated with the selected transaction.
+Anomaly Object Page
+Displays:
+- Anomaly ID
+- Anomaly Type
+- Description
+- Risk Points
+- Detected At
+- Resolution Status
+The page also provides the Resolve Anomaly action.
+
+🛠️ Technologies Used
+- SAP ABAP
+- ABAP RESTful Application Programming Model (RAP)
+- Core Data Services (CDS)
+- ABAP Behavior Definitions
+- ABAP Behavior Implementation
+- ABAP EML
+- OData V2
+- SAP Fiori Elements
+- SAP HANA
+- Eclipse ADT
+
+📚 Learning Outcomes
+Through this project, I worked with:
+- Managed RAP Business Objects
+- CDS Interface and Projection Views
+- RAP Behavior Definitions
+- RAP Behavior Implementations
+- ABAP EML
+- RAP Actions
+- Instance Authorization
+- Parent-child entity relationships
+- OData services
+- Fiori Elements
+- SAP HANA persistence
+- Business-rule-based anomaly detection
+
+  👨‍💻 Author
+Vidhi Chondagar
+Final Year BE Information Technology Student
+Interested in SAP ABAP, RAP, SAP HANA, Fiori Elements and enterprise application development.
