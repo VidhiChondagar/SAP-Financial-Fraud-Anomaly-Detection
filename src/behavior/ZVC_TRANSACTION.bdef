@@ -1,0 +1,22 @@
+projection;
+strict ( 2 );
+
+define behavior for ZVC_TRANSACTION
+{
+  use create;
+  use update;
+  use delete;
+
+  use action AnalyzeTransaction;
+  use action MarkUnderReview;
+  use action ClearTransaction;
+  use action ConfirmSuspicious;
+
+  use association _Anomalies;
+}
+
+define behavior for ZVC_ANOMALY
+{
+  use action ResolveAnomaly;
+  use association _transaction;
+}
