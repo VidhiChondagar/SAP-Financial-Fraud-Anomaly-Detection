@@ -1,0 +1,40 @@
+managed implementation in class zbp_vi_transaction unique;
+strict ( 2 );
+
+define behavior for ZVI_TRANSACTION
+persistent table zvt_transaction
+lock master
+authorization master ( instance )
+{
+  create;
+  update;
+  delete;
+
+  field ( readonly : update ) TransactionId;
+
+  association _Anomalies { create; }
+
+  action AnalyzeTransaction;
+  action MarkUnderReview;
+  action ClearTransaction;
+  action ConfirmSuspicious;
+
+  mapping for zvt_transaction
+  {
+    TransactionId     = transaction_id;
+    VendorId          = vendor_id;
+    InvoiceId         = invoice_id;
+    TransactionDate   = transaction_date;
+    TransactionTime   = transaction_time;
+    Amount            = amount;
+    Currency          = currency;
+    PaymentMethod     = payment_method;
+    TransactionStatus = transaction_status;
+    RiskScore         = risk_score;
+    RiskLvl           = risk_lvl;
+    ReviewStatus      = review_status;
+    CreatedBy         = created_by;
+    CraetedAt         = craeted_at;
+    LastChangedAt     = last_changed_at;
+  }
+}
