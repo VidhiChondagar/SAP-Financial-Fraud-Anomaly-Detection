@@ -1,0 +1,79 @@
+@Metadata.layer: #CORE
+annotate view ZVC_TRANSACTION with
+{
+    @UI.facet: [
+        {
+            id: 'GeneralInformation',
+            purpose: #STANDARD,
+            type: #IDENTIFICATION_REFERENCE,
+            label: 'Transaction Details',
+            position: 10
+        },
+        {
+            id: 'Anomalies',
+            purpose: #STANDARD,
+            type: #LINEITEM_REFERENCE,
+            label: 'Detected Anomalies',
+            position: 20,
+            targetElement: '_Anomalies'
+        }
+    ]
+
+    @UI.lineItem: [
+        { position: 10 },
+        {
+            type: #FOR_ACTION,
+            dataAction: 'AnalyzeTransaction',
+            label: 'Analyze Transaction'
+        },
+        {
+            type: #FOR_ACTION,
+            dataAction: 'MarkUnderReview',
+            label: 'Mark Under Review'
+        },
+        {
+            type: #FOR_ACTION,
+            dataAction: 'ClearTransaction',
+            label: 'Clear Transaction'
+        },
+        {
+            type: #FOR_ACTION,
+            dataAction: 'ConfirmSuspicious',
+            label: 'Confirm Suspicious'
+        }
+    ]
+    @UI.identification: [{ position: 10 }]
+    TransactionId;
+
+    @UI.lineItem: [{ position: 20 }]
+    @UI.identification: [{ position: 20 }]
+    VendorId;
+
+    @UI.lineItem: [{ position: 30 }]
+    @UI.identification: [{ position: 30 }]
+    InvoiceId;
+
+    @UI.lineItem: [{ position: 40 }]
+    @UI.identification: [{ position: 40 }]
+    TransactionDate;
+
+    @UI.lineItem: [{ position: 50 }]
+    @UI.identification: [{ position: 50 }]
+    Amount;
+
+    @UI.lineItem: [{ position: 60 }]
+    @UI.identification: [{ position: 60 }]
+    Currency;
+
+    @UI.lineItem: [{ position: 70 }]
+    @UI.identification: [{ position: 70 }]
+    RiskScore;
+
+    @UI.lineItem: [{ position: 80 }]
+    @UI.identification: [{ position: 80 }]
+    RiskLvl;
+
+    @UI.lineItem: [{ position: 90 }]
+    @UI.identification: [{ position: 90 }]
+    ReviewStatus;
+}
