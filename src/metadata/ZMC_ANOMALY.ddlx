@@ -1,0 +1,44 @@
+@Metadata.layer: #CORE
+annotate view ZVC_ANOMALY with
+{
+    @UI.facet: [
+        {
+            id: 'AnomalyDetails',
+            purpose: #STANDARD,
+            type: #IDENTIFICATION_REFERENCE,
+            label: 'Anomaly Details',
+            position: 10
+        }
+    ]
+
+    @UI.lineItem: [{ position: 10 }]
+    @UI.identification: [
+        { position: 10 },
+        {
+            type: #FOR_ACTION,
+            dataAction: 'ResolveAnomaly',
+            label: 'Resolve Anomaly'
+        }
+    ]
+    AnomalyId;
+
+    @UI.lineItem: [{ position: 20 }]
+    @UI.identification: [{ position: 20 }]
+    AnomalyType;
+
+    @UI.lineItem: [{ position: 30 }]
+    @UI.identification: [{ position: 30 }]
+    Description;
+
+    @UI.lineItem: [{ position: 40 }]
+    @UI.identification: [{ position: 40 }]
+    RiskPoints;
+
+    @UI.lineItem: [{ position: 50 }]
+    @UI.identification: [{ position: 50 }]
+    DetectedAt;
+
+    @UI.lineItem: [{ position: 60 }]
+    @UI.identification: [{ position: 60 }]
+    ResolutionStatus;
+}
